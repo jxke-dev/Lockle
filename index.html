@@ -4,9 +4,6 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Lockle</title>
-
-<link rel="icon" href="favicon.ico">
-
 <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Rajdhani:wght@400;600;700&display=swap" rel="stylesheet">
 <style>
 :root {
@@ -280,15 +277,20 @@ body.expert-mode .feedback-digit { width: 34px; height: 34px; font-size: 17px; }
       <span class="screen-label-left" id="status-label">Authorization required</span>
       <div id="timer">03:00</div>
     </div>
+    
     <div id="daily-countdown-block" style="display:none">
       <div id="daily-countdown-label">Next Daily Lock</div>
       <div id="daily-countdown-time">00:00:00</div>
       <div id="daily-completed-msg"></div>
     </div>
+    
     <div id="strike-bar" style="display:none">
       <div class="strike-pip" id="sp1"></div>
       <div class="strike-pip" id="sp2"></div>
       <div class="strike-pip" id="sp3"></div>
+      <div class="strike-pip" id="sp4"></div>
+      <div class="strike-pip" id="sp5"></div>
+      <div class="strike-pip" id="sp6"></div>
     </div>
     <div id="lockout-banner">⚠ Security Lockout</div>
     <div id="display"></div>
@@ -323,6 +325,7 @@ body.expert-mode .feedback-digit { width: 34px; height: 34px; font-size: 17px; }
     <button class="action-btn" id="btn-stats">Stats</button>
   </div>
 
+  
   <div id="abort-confirm" class="overlay">
     <div class="abort-title">Abort current lock?</div>
     <div class="abort-sub">Your progress will be lost<br>and counted as a loss.</div>
@@ -446,8 +449,8 @@ const DIFFS = {
   expert: {digits:8, time:60,  label:'Expert'},
 };
 const DAILY_CONFIG = { digits:8, label:'Daily' };
-const DAILY_MAX_STRIKES = 3;
-const DAILY_LOCKOUT_DURATIONS = [10, 30, 120];
+const DAILY_MAX_STRIKES = 6;
+const DAILY_LOCKOUT_DURATIONS = [];
 
 const PREFIXES = ['VAULT','SIGMA','DELTA','ALPHA','KILO','NEXUS','OMEGA','ZETA'];
 function makeVaultId(){ return PREFIXES[Math.floor(Math.random()*PREFIXES.length)]+'-'+Math.floor(10000+Math.random()*89999); }
@@ -462,7 +465,6 @@ let adminCodeShown=false;
 let currentVaultId='';
 let dailyCountdownInterval=null;
 
-function getDailyKey(){ const d=new Date(); return `lockle_daily_${d.getFullYear()}_${d.getMonth()+1}_${d.getDate()}`; }
 function getDailyState(){ try{ return JSON.parse(localStorage.getItem(getDailyKey())||'null'); }catch(e){return null;} }
 function saveDailyState(state){ try{ localStorage.setItem(getDailyKey(),JSON.stringify(state)); }catch(e){} }
 function isDailyCompleted(){ const s=getDailyState(); return s&&s.completed; }
@@ -482,10 +484,11 @@ function renderStats(){
 }
 function fmtTime(s){return String(Math.floor(s/60)).padStart(2,'0')+':'+String(s%60).padStart(2,'0');}
 
-function getDailySeed(){const d=new Date();return d.getFullYear()*10000+(d.getMonth()+1)*100+d.getDate();}
+function getDailySeed(){const d=new Date();return d.getUTCFullYear()*10000+(d.getUTCMonth()+1)*100+d.getUTCDate();}
 function seededRandom(seed){let s=seed;return()=>{s=(s*1664525+1013904223)&0xffffffff;return(s>>>0)/0xffffffff;};}
 function generateDailyCode(digits){const rng=seededRandom(getDailySeed()^(digits*9999));let c='';for(let i=0;i<digits;i++)c+=Math.floor(rng()*10);return c;}
-function getDailyNumber(){const epoch=new Date('2025-01-01');const today=new Date();today.setHours(0,0,0,0);return Math.floor((today-epoch)/86400000)+1;}
+function getDailyNumber(){const epoch=new Date(Date.UTC(2025,0,1));const now=new Date();const today=Date.UTC(now.getUTCFullYear(),now.getUTCMonth(),now.getUTCDate());return Math.floor((today-epoch)/86400000)+1;}
+function getDailyKey(){const d=new Date();return `lockle_daily_${d.getUTCFullYear()}_${d.getUTCMonth()+1}_${d.getUTCDate()}`;}
 
 const displayEl     = document.getElementById('display');
 const messageEl     = document.getElementById('message');
@@ -544,15 +547,17 @@ function startGame(daily=false){
   loseOverlay.classList.remove('show');
   abortConfirm.classList.remove('show');
   lockoutBanner.classList.remove('show');
+  setLockoutKeys(false);
   dailyCdBlock.style.display='none';
   timerEl.style.display='';
 
   setMessage(daily?'No timer. No mercy.':'Press a key to start timer.','');
   document.getElementById('status-label').textContent='Authorization required';
-  document.body.classList.toggle('expert-mode', daily||diff==='expert');
-  legendPresent.style.opacity=(daily||diff==='expert')?'0':'1';
+  document.body.classList.toggle('expert-mode', diff==='expert' && !daily);
+  legendPresent.style.opacity=(diff==='expert' && !daily)?'0':'1';
 
   strikeBar.style.display=daily?'flex':'none';
+  document.getElementById('btn-restart').style.display=daily?'none':'';
   updateStrikeBar();
 
   buildDisplay(n);
@@ -570,6 +575,7 @@ function startGame(daily=false){
 
 function showDailyCompleted(ds){
   gameOver=true;
+  vaultIdEl.textContent=currentVaultId;
   buildDisplay(DAILY_CONFIG.digits);
   document.getElementById('status-label').textContent=ds.won?'Access granted':'Challenge failed';
   timerEl.style.display='none';
@@ -578,6 +584,7 @@ function showDailyCompleted(ds){
     ds.won ? `Solved in ${ds.attempts} attempt${ds.attempts!==1?'s':''} — come back tomorrow.`
            : 'Failed — come back tomorrow.';
   strikeBar.style.display='none';
+  document.getElementById('btn-restart').style.display='none';
   setMessage('','');
   startDailyCountdown();
   setLockoutKeys(true);
@@ -585,10 +592,10 @@ function showDailyCompleted(ds){
 
 function startDailyCountdown(){
   function tick(){
-    const now=new Date(), next=new Date();
-    next.setDate(now.getDate()+1); next.setHours(0,0,0,0);
-    const diff=Math.max(0,Math.floor((next-now)/1000));
-    const h=Math.floor(diff/3600), m=Math.floor((diff%3600)/60), s=diff%60;
+    const now=new Date();
+    const next=new Date(Date.UTC(now.getUTCFullYear(),now.getUTCMonth(),now.getUTCDate()+1,0,0,0));
+    const d=Math.max(0,Math.floor((next-now)/1000));
+    const h=Math.floor(d/3600), m=Math.floor((d%3600)/60), s=d%60;
     document.getElementById('daily-countdown-time').textContent=
       String(h).padStart(2,'0')+':'+String(m).padStart(2,'0')+':'+String(s).padStart(2,'0');
   }
@@ -730,14 +737,11 @@ function triggerClassicLockout(){
 }
 
 function handleDailyWrongGuess(correctCount){
-  let isStrike=false, lockoutDur=0;
   if(correctCount===0){
-    isStrike=true;
     dailyStrikes++;
     updateStrikeBar();
-    lockoutDur=DAILY_LOCKOUT_DURATIONS[Math.min(dailyStrikes-1, DAILY_LOCKOUT_DURATIONS.length-1)];
 
-    if(dailyStrikes>DAILY_MAX_STRIKES){
+    if(dailyStrikes>=DAILY_MAX_STRIKES){
       gameOver=true;
       saveDailyState({completed:true,won:false,attempts:attemptCount});
       recordLoss();
@@ -745,16 +749,15 @@ function handleDailyWrongGuess(correctCount){
       return;
     }
 
-    setMessage('Strike '+dailyStrikes+'/'+DAILY_MAX_STRIKES+' — lockout: '+lockoutDur+'s','bad');
-    triggerDailyLockout(lockoutDur);
+    setMessage('Strike '+dailyStrikes+'/'+DAILY_MAX_STRIKES+' — warning issued','bad');
   } else if(correctCount<=2){
     setMessage(correctCount+' correct — keep going','warn');
-    currentCode=[];updateDisplay();
   } else {
     setMessage(correctCount+' correct positions','warn');
-    currentCode=[];updateDisplay();
   }
 
+  currentCode=[];
+  updateDisplay();
   saveDailyState({completed:false,strikes:dailyStrikes,attempts:attemptCount});
 }
 
@@ -784,7 +787,7 @@ function showDailyLockdown(){
 }
 
 function updateStrikeBar(){
-  ['sp1','sp2','sp3'].forEach((id,i)=>{
+  ['sp1','sp2','sp3','sp4','sp5','sp6'].forEach((id,i)=>{
     document.getElementById(id).classList.toggle('active',i<dailyStrikes);
   });
 }
@@ -861,7 +864,7 @@ function buildShareText(won){
   const header=`LOCKLE ${label}`;
   const MAP={correct:'🟩',present:'🟨',wrong:'⬛'};
   const EMAP={correct:'🟩',present:'⬛',wrong:'⬛'};
-  const map=(isDaily||diff==='expert')?EMAP:MAP;
+  const map=(diff==='expert' && !isDaily)?EMAP:MAP;
   const grid=guessLog.map(({feedback})=>feedback.map(f=>map[f]).join('')).join('\n');
   const result=won?`${isDaily?attemptCount+' attempts':fmtTime(Math.round((Date.now()-gameStartTime)/1000))}`:'Failed';
   return `${header}\n\n${grid}\n\n${result}`;
