@@ -7,7 +7,6 @@
 
 <link rel="icon" href="favicon.ico">
 
-  
 <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Rajdhani:wght@400;600;700&display=swap" rel="stylesheet">
 <style>
 :root {
@@ -43,7 +42,6 @@ body {
 .title-block h1 { font-family: 'Share Tech Mono', monospace; font-size: clamp(32px,7vw,52px); letter-spacing: 10px; color: var(--green); text-shadow: 0 0 30px rgba(0,201,122,0.3); }
 .title-block .subtitle { font-size: 13px; letter-spacing: 4px; color: var(--muted); margin-top: 4px; text-transform: uppercase; }
 
-/* SAFE */
 #safe {
   width: min(95vw, 480px);
   background: linear-gradient(160deg, var(--metal1) 0%, var(--metal2) 100%);
@@ -56,13 +54,11 @@ body {
 .rivet-bottom { position: absolute; width: 8px; height: 8px; background: radial-gradient(circle at 35% 35%, #3a3a48, #12121a); border-radius: 50%; border: 1px solid var(--border2); bottom: 14px; }
 .rivet-bottom.l { left: 14px; } .rivet-bottom.r { right: 14px; }
 
-/* MODE TABS */
 #mode-tabs { display: flex; gap: 6px; margin-bottom: 12px; background: var(--digit-bg); border: 1px solid var(--border); border-radius: 8px; padding: 4px; }
 .mode-tab { flex: 1; padding: 9px 4px; border: none; border-radius: 6px; background: transparent; color: var(--muted); font-family: 'Rajdhani', sans-serif; font-size: 14px; font-weight: 700; letter-spacing: 2px; cursor: pointer; transition: background 0.15s, color 0.15s; text-transform: uppercase; }
 .mode-tab:hover { color: var(--text); }
 .mode-tab.active { background: var(--btn-bg); color: var(--green); border: 1px solid rgba(0,201,122,0.25); }
 
-/* DIFF TABS */
 #diff-tabs { display: flex; gap: 5px; margin-bottom: 14px; background: #0a0a0e; border: 1px solid var(--border); border-radius: 7px; padding: 3px; }
 #diff-tabs.hidden { display: none; }
 .diff-tab { flex: 1; padding: 7px 4px; border: none; border-radius: 5px; background: transparent; color: var(--muted); font-family: 'Rajdhani', sans-serif; font-size: 12px; font-weight: 600; letter-spacing: 1px; cursor: pointer; transition: background 0.15s, color 0.15s; text-transform: uppercase; }
@@ -70,14 +66,12 @@ body {
 .diff-tab.active { background: var(--btn-bg); color: var(--green); border: 1px solid rgba(0,201,122,0.2); }
 .diff-tab[data-diff="expert"].active { color: var(--red); border-color: rgba(232,68,90,0.25); }
 
-/* TERMINAL */
 #terminal-header { background: #06060a; border: 1px solid var(--border); border-radius: 8px 8px 0 0; padding: 8px 14px; border-bottom: none; display: flex; justify-content: space-between; align-items: center; }
 .term-label { font-family: 'Share Tech Mono', monospace; font-size: 10px; letter-spacing: 3px; color: var(--muted); text-transform: uppercase; }
 .term-dots { display: flex; gap: 5px; }
 .term-dot { width: 7px; height: 7px; border-radius: 50%; }
 .term-dot.r { background: #5a1a1a; } .term-dot.y { background: #4a3a00; } .term-dot.g { background: #003d20; }
 
-/* SCREEN */
 #screen { background: #060609; border: 1px solid var(--border); border-radius: 0 0 10px 10px; padding: 14px 16px 16px; margin-bottom: 14px; position: relative; box-shadow: inset 0 2px 8px rgba(0,0,0,0.8); }
 #screen::before { content: ''; position: absolute; inset: 0; border-radius: 0 0 10px 10px; background: linear-gradient(180deg, rgba(255,255,255,0.03) 0%, transparent 30%); pointer-events: none; }
 #vault-id-line { font-family: 'Share Tech Mono', monospace; font-size: 11px; color: var(--muted); letter-spacing: 2px; margin-bottom: 10px; text-transform: uppercase; }
@@ -90,13 +84,11 @@ body {
 #timer.crit { color: var(--red); text-shadow: 0 0 12px rgba(232,68,90,0.5); animation: timerFlash 0.5s ease-in-out infinite; }
 @keyframes timerFlash { 0%,100%{opacity:1;}50%{opacity:0.4;} }
 
-/* Daily countdown display */
 #daily-countdown-block { text-align: center; padding: 20px 0 10px; }
 #daily-countdown-label { font-family: 'Share Tech Mono', monospace; font-size: 11px; letter-spacing: 3px; color: var(--muted); text-transform: uppercase; margin-bottom: 8px; }
 #daily-countdown-time { font-family: 'Share Tech Mono', monospace; font-size: 36px; color: var(--green); text-shadow: 0 0 12px rgba(0,201,122,0.3); letter-spacing: 4px; }
 #daily-completed-msg { font-family: 'Share Tech Mono', monospace; font-size: 12px; color: var(--muted); letter-spacing: 2px; margin-top: 10px; text-transform: uppercase; text-align: center; }
 
-/* DISPLAY */
 #display { display: flex; justify-content: center; gap: 8px; margin: 14px 0 10px; }
 .digit { width: 52px; height: 66px; background: var(--digit-bg); border: 1px solid var(--border2); border-radius: 6px; display: flex; justify-content: center; align-items: center; font-family: 'Share Tech Mono', monospace; font-size: 36px; color: var(--green); text-shadow: 0 0 10px rgba(0,201,122,0.5); box-shadow: inset 0 2px 6px rgba(0,0,0,0.8); transition: border-color 0.2s; }
 .digit.filled { border-color: rgba(0,201,122,0.3); }
@@ -108,12 +100,10 @@ body {
 @keyframes penaltyFlash { 0%{background:rgba(232,68,90,0.18);}100%{background:transparent;} }
 .penalty-flash { animation: penaltyFlash 0.5s ease; }
 
-/* Strike bar */
 #strike-bar { display: flex; gap: 6px; justify-content: center; margin-bottom: 8px; }
 .strike-pip { width: 28px; height: 6px; border-radius: 3px; background: var(--border); transition: background 0.3s, box-shadow 0.3s; }
 .strike-pip.active { background: var(--red); box-shadow: 0 0 6px var(--red); }
 
-/* Lockout banner */
 #lockout-banner { display: none; text-align: center; padding: 8px; font-family: 'Share Tech Mono', monospace; font-size: 13px; letter-spacing: 3px; color: var(--red); text-transform: uppercase; animation: lockoutBlink 0.6s ease-in-out infinite; }
 #lockout-banner.show { display: block; }
 @keyframes lockoutBlink { 0%,100%{opacity:1;}50%{opacity:0.2;} }
@@ -123,7 +113,6 @@ body {
 #message.bad  { color: var(--red); }
 #message.warn { color: var(--yellow); }
 
-/* LEGEND */
 .legend { display: flex; justify-content: center; gap: 18px; margin-bottom: 12px; font-size: 12px; color: var(--muted); letter-spacing: 1px; }
 .legend-item { display: flex; align-items: center; gap: 6px; }
 .led { width: 8px; height: 8px; border-radius: 50%; }
@@ -132,7 +121,6 @@ body {
 .led.x { background: #333; }
 #legend-present { transition: opacity 0.3s; }
 
-/* HISTORY */
 #history { max-height: 200px; overflow-y: auto; margin-bottom: 12px; scrollbar-width: thin; scrollbar-color: var(--border2) transparent; }
 #history::-webkit-scrollbar { width: 4px; }
 #history::-webkit-scrollbar-thumb { background: var(--border2); border-radius: 2px; }
@@ -150,7 +138,6 @@ body.expert-mode .present { background: #0f0f14; color: #555; border: 1px solid 
 body.expert-mode .present::after { background: #222; box-shadow: none; }
 body.expert-mode .feedback-digit { width: 34px; height: 34px; font-size: 17px; }
 
-/* KEYPAD */
 #keypad { display: grid; grid-template-columns: repeat(3, 1fr); gap: 9px; margin-bottom: 14px; }
 .key { height: 64px; background: linear-gradient(160deg, var(--btn-bg), #16161c); border: 1px solid var(--border2); border-radius: 8px; color: var(--text); font-family: 'Share Tech Mono', monospace; font-size: 22px; cursor: pointer; display: flex; justify-content: center; align-items: center; transition: background 0.1s, transform 0.08s, opacity 0.2s; box-shadow: inset 0 1px 0 rgba(255,255,255,0.06), 0 2px 0 rgba(0,0,0,0.5); user-select: none; }
 .key:hover { background: var(--btn-hover); }
@@ -161,7 +148,6 @@ body.expert-mode .feedback-digit { width: 34px; height: 34px; font-size: 17px; }
 #key-enter { background: linear-gradient(160deg,#0a2e1c,#061c10); border-color: rgba(0,201,122,0.4); color: var(--green); font-size: 16px; letter-spacing: 1px; }
 #key-enter:hover { background: linear-gradient(160deg,#0e3e26,#081e12); }
 
-/* BOTTOM */
 .bottom-row { display: flex; gap: 10px; }
 .action-btn { flex: 1; padding: 11px; background: var(--digit-bg); border: 1px solid var(--border2); border-radius: 8px; color: var(--muted); font-family: 'Rajdhani', sans-serif; font-size: 14px; font-weight: 600; letter-spacing: 2px; cursor: pointer; text-transform: uppercase; transition: background 0.15s, color 0.15s, opacity 0.2s; }
 .action-btn:hover { background: var(--btn-hover); color: var(--text); }
@@ -169,11 +155,9 @@ body.expert-mode .feedback-digit { width: 34px; height: 34px; font-size: 17px; }
 .action-btn.primary:hover { background: rgba(0,201,122,0.08); }
 .action-btn.danger { color: var(--red); border-color: rgba(232,68,90,0.3); }
 
-/* OVERLAYS base */
 .overlay { display: none; position: absolute; inset: 0; background: rgba(6,6,9,0.95); border-radius: 18px; flex-direction: column; align-items: center; justify-content: center; gap: 14px; z-index: 10; padding: 30px; }
 .overlay.show { display: flex; }
 
-/* Win overlay */
 .win-icon { font-family: 'Share Tech Mono', monospace; font-size: 48px; color: var(--green); animation: pulse 1.5s ease-in-out infinite; }
 @keyframes pulse { 0%,100%{text-shadow:0 0 20px rgba(0,201,122,0.5);}50%{text-shadow:0 0 50px rgba(0,201,122,0.9);} }
 .win-text { font-size: 28px; font-weight: 700; letter-spacing: 4px; color: var(--green); text-transform: uppercase; }
@@ -186,30 +170,24 @@ body.expert-mode .feedback-digit { width: 34px; height: 34px; font-size: 17px; }
 .win-stat-val { color: var(--green); font-size: 20px; display: block; }
 .win-stat-lbl { color: var(--muted); font-size: 11px; letter-spacing: 1px; text-transform: uppercase; }
 
-/* First try easter egg */
 #firsttry-msg { font-family: 'Share Tech Mono', monospace; font-size: 12px; color: var(--yellow); letter-spacing: 1px; text-align: center; line-height: 1.6; border: 1px solid rgba(240,180,41,0.3); border-radius: 8px; padding: 10px 16px; background: rgba(240,180,41,0.05); display: none; }
 
-/* Lose overlay */
 .lose-icon { font-family: 'Share Tech Mono', monospace; font-size: 48px; color: var(--red); }
 .lose-text { font-size: 28px; font-weight: 700; letter-spacing: 4px; color: var(--red); text-transform: uppercase; }
 .lose-code { font-family: 'Share Tech Mono', monospace; font-size: 28px; color: var(--text); letter-spacing: 6px; background: var(--digit-bg); padding: 10px 20px; border-radius: 8px; border: 1px solid var(--border2); }
 
-/* Daily lockdown overlay */
 #daily-lockdown { font-size: 18px; font-weight: 700; letter-spacing: 3px; color: var(--red); text-transform: uppercase; text-align: center; }
 
-/* Share */
 .share-btn { background: rgba(0,201,122,0.1); border: 1px solid rgba(0,201,122,0.35); color: var(--green); font-family: 'Share Tech Mono', monospace; font-size: 12px; letter-spacing: 2px; padding: 10px 20px; border-radius: 8px; cursor: pointer; text-transform: uppercase; transition: background 0.15s; }
 .share-btn:hover { background: rgba(0,201,122,0.2); }
 .copy-confirm { font-family: 'Share Tech Mono', monospace; font-size: 11px; color: var(--green); letter-spacing: 2px; opacity: 0; transition: opacity 0.3s; text-transform: uppercase; }
 .copy-confirm.show { opacity: 1; }
 
-/* Abort */
 #abort-confirm { background: rgba(6,6,9,0.93); }
 .abort-title { font-family: 'Share Tech Mono', monospace; font-size: 16px; letter-spacing: 3px; color: var(--yellow); text-transform: uppercase; }
 .abort-sub { font-size: 14px; color: var(--muted); letter-spacing: 1px; text-align: center; }
 .abort-btns { display: flex; gap: 12px; width: 100%; }
 
-/* BAN SEQUENCE OVERLAY */
 #ban-overlay { display: none; position: fixed; inset: 0; background: #000; z-index: 999; flex-direction: column; align-items: center; justify-content: center; font-family: 'Share Tech Mono', monospace; padding: 40px; }
 #ban-overlay.show { display: flex; }
 #ban-lines { font-size: 14px; letter-spacing: 2px; color: var(--red); text-align: center; line-height: 2.2; text-transform: uppercase; }
@@ -217,14 +195,12 @@ body.expert-mode .feedback-digit { width: 34px; height: 34px; font-size: 17px; }
 #ban-jk { display: none; color: var(--green); font-size: 20px; letter-spacing: 4px; margin-top: 20px; text-transform: uppercase; }
 #ban-lockout-msg { display: none; color: var(--red); font-size: 14px; letter-spacing: 2px; margin-top: 10px; text-transform: uppercase; text-align: center; }
 
-/* REAL LOCKOUT SCREEN */
 #real-lockout-overlay { display: none; position: fixed; inset: 0; background: #000; z-index: 998; flex-direction: column; align-items: center; justify-content: center; font-family: 'Share Tech Mono', monospace; gap: 20px; }
 #real-lockout-overlay.show { display: flex; }
 #rlo-title { font-size: 18px; letter-spacing: 4px; color: var(--red); text-transform: uppercase; text-align: center; }
 #rlo-timer { font-size: 64px; color: var(--red); letter-spacing: 6px; animation: timerFlash 1s ease-in-out infinite; }
 #rlo-sub { font-size: 11px; letter-spacing: 3px; color: #333; text-transform: uppercase; }
 
-/* ADMIN */
 #admin-pw-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.85); z-index: 200; align-items: center; justify-content: center; }
 #admin-pw-overlay.show { display: flex; }
 #admin-pw-box { background: #0a0a10; border: 1px solid rgba(232,68,90,0.5); border-radius: 10px; padding: 24px; width: min(90vw, 320px); font-family: 'Share Tech Mono', monospace; }
@@ -256,7 +232,6 @@ body.expert-mode .feedback-digit { width: 34px; height: 34px; font-size: 17px; }
 .admin-time-row input { flex: 1; background: var(--digit-bg); border: 1px solid var(--border2); border-radius: 6px; color: var(--text); font-family: 'Share Tech Mono', monospace; font-size: 14px; padding: 6px 8px; text-align: center; outline: none; }
 .admin-time-row input:focus { border-color: rgba(232,68,90,0.5); }
 
-/* STATS */
 #stats-panel { display: none; width: min(95vw, 480px); margin-top: 14px; background: var(--panel); border: 1px solid var(--border); border-radius: 12px; padding: 20px; }
 #stats-panel h2 { font-family: 'Share Tech Mono', monospace; font-size: 12px; letter-spacing: 4px; color: var(--muted); text-transform: uppercase; margin-bottom: 14px; text-align: center; }
 .stats-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px; }
@@ -305,13 +280,11 @@ body.expert-mode .feedback-digit { width: 34px; height: 34px; font-size: 17px; }
       <span class="screen-label-left" id="status-label">Authorization required</span>
       <div id="timer">03:00</div>
     </div>
-    <!-- Daily countdown (shown instead of timer in daily completed state) -->
     <div id="daily-countdown-block" style="display:none">
       <div id="daily-countdown-label">Next Daily Lock</div>
       <div id="daily-countdown-time">00:00:00</div>
       <div id="daily-completed-msg"></div>
     </div>
-    <!-- Strike bar (daily only) -->
     <div id="strike-bar" style="display:none">
       <div class="strike-pip" id="sp1"></div>
       <div class="strike-pip" id="sp2"></div>
@@ -350,7 +323,6 @@ body.expert-mode .feedback-digit { width: 34px; height: 34px; font-size: 17px; }
     <button class="action-btn" id="btn-stats">Stats</button>
   </div>
 
-  <!-- Overlays -->
   <div id="abort-confirm" class="overlay">
     <div class="abort-title">Abort current lock?</div>
     <div class="abort-sub">Your progress will be lost<br>and counted as a loss.</div>
@@ -383,7 +355,6 @@ body.expert-mode .feedback-digit { width: 34px; height: 34px; font-size: 17px; }
   </div>
 </div>
 
-<!-- Stats -->
 <div id="stats-panel">
   <h2>Statistics</h2>
   <div class="stats-grid">
@@ -395,7 +366,6 @@ body.expert-mode .feedback-digit { width: 34px; height: 34px; font-size: 17px; }
   </div>
 </div>
 
-<!-- Admin pw prompt -->
 <div id="admin-pw-overlay">
   <div id="admin-pw-box">
     <div id="admin-pw-title">⚠ Admin Authentication</div>
@@ -408,7 +378,6 @@ body.expert-mode .feedback-digit { width: 34px; height: 34px; font-size: 17px; }
   </div>
 </div>
 
-<!-- Admin panel -->
 <div id="admin-panel">
   <div class="admin-header">
     <span class="admin-title">⚠ Admin Access</span>
@@ -441,7 +410,6 @@ body.expert-mode .feedback-digit { width: 34px; height: 34px; font-size: 17px; }
   <button class="admin-btn danger" id="admin-reset-stats">Reset All Stats</button>
 </div>
 
-<!-- Ban sequence overlay -->
 <div id="ban-overlay">
   <div id="ban-lines"></div>
   <div id="ban-countdown-wrap"></div>
@@ -449,7 +417,6 @@ body.expert-mode .feedback-digit { width: 34px; height: 34px; font-size: 17px; }
   <div id="ban-lockout-msg"></div>
 </div>
 
-<!-- Real lockout screen -->
 <div id="real-lockout-overlay">
   <div id="rlo-title">Terminal Access Revoked</div>
   <div id="rlo-timer">05:00</div>
@@ -457,11 +424,9 @@ body.expert-mode .feedback-digit { width: 34px; height: 34px; font-size: 17px; }
 </div>
 
 <script>
-// ── PASSWORDS ──────────────────────────────
 const REAL_PASSWORD = 'lockle-admin-9x';
 const TEST_PASSWORD = 'test';
 
-// ── Audio ──────────────────────────────────
 const AC = typeof AudioContext !== 'undefined' ? new AudioContext() : null;
 function beep(freq,dur,type='square',vol=0.06){
   if(!AC)return;
@@ -474,23 +439,19 @@ function playWin()     { [523,659,784,1047].forEach((f,i)=>setTimeout(()=>beep(f
 function playLockout() { beep(220,0.08,'square',0.08); setTimeout(()=>beep(180,0.12,'square',0.08),100); }
 function playAlarm()   { [440,440,0,440,440,0,440,440].forEach((f,i)=>setTimeout(()=>f&&beep(f,0.08,'square',0.12),i*180)); }
 
-// ── Diff config ────────────────────────────
 const DIFFS = {
   easy:   {digits:4, time:180, label:'Easy'},
   normal: {digits:6, time:180, label:'Normal'},
   hard:   {digits:6, time:90,  label:'Hard'},
   expert: {digits:8, time:60,  label:'Expert'},
 };
-// Daily config: 8 digits, expert rules, no timer (strike-based)
 const DAILY_CONFIG = { digits:8, label:'Daily' };
 const DAILY_MAX_STRIKES = 3;
-// Daily escalating lockout durations (seconds) per strike
 const DAILY_LOCKOUT_DURATIONS = [10, 30, 120];
 
 const PREFIXES = ['VAULT','SIGMA','DELTA','ALPHA','KILO','NEXUS','OMEGA','ZETA'];
 function makeVaultId(){ return PREFIXES[Math.floor(Math.random()*PREFIXES.length)]+'-'+Math.floor(10000+Math.random()*89999); }
 
-// ── State ──────────────────────────────────
 let mode='classic', diff='normal';
 let secretCode='', currentCode=[], timeLeft=180;
 let gameOver=false, timerStarted=false, timerInterval=null, gameStartTime=null;
@@ -501,13 +462,11 @@ let adminCodeShown=false;
 let currentVaultId='';
 let dailyCountdownInterval=null;
 
-// ── Daily persistence ──────────────────────
 function getDailyKey(){ const d=new Date(); return `lockle_daily_${d.getFullYear()}_${d.getMonth()+1}_${d.getDate()}`; }
 function getDailyState(){ try{ return JSON.parse(localStorage.getItem(getDailyKey())||'null'); }catch(e){return null;} }
 function saveDailyState(state){ try{ localStorage.setItem(getDailyKey(),JSON.stringify(state)); }catch(e){} }
 function isDailyCompleted(){ const s=getDailyState(); return s&&s.completed; }
 
-// ── Stats ──────────────────────────────────
 function loadStats(){try{return JSON.parse(localStorage.getItem('lockle_stats4')||'{}');}catch(e){return{};}}
 function saveStats(s){try{localStorage.setItem('lockle_stats4',JSON.stringify(s));}catch(e){}}
 function getStats(){const s=loadStats();return{played:s.played||0,wins:s.wins||0,streak:s.streak||0,best:s.best!=null?s.best:null,totalWinTime:s.totalWinTime||0};}
@@ -523,13 +482,11 @@ function renderStats(){
 }
 function fmtTime(s){return String(Math.floor(s/60)).padStart(2,'0')+':'+String(s%60).padStart(2,'0');}
 
-// ── Daily seed ─────────────────────────────
 function getDailySeed(){const d=new Date();return d.getFullYear()*10000+(d.getMonth()+1)*100+d.getDate();}
 function seededRandom(seed){let s=seed;return()=>{s=(s*1664525+1013904223)&0xffffffff;return(s>>>0)/0xffffffff;};}
 function generateDailyCode(digits){const rng=seededRandom(getDailySeed()^(digits*9999));let c='';for(let i=0;i<digits;i++)c+=Math.floor(rng()*10);return c;}
 function getDailyNumber(){const epoch=new Date('2025-01-01');const today=new Date();today.setHours(0,0,0,0);return Math.floor((today-epoch)/86400000)+1;}
 
-// ── DOM refs ───────────────────────────────
 const displayEl     = document.getElementById('display');
 const messageEl     = document.getElementById('message');
 const timerEl       = document.getElementById('timer');
@@ -549,13 +506,11 @@ const dailyCdBlock  = document.getElementById('daily-countdown-block');
 const banOverlay    = document.getElementById('ban-overlay');
 const realLockout   = document.getElementById('real-lockout-overlay');
 
-// ── Build display ──────────────────────────
 function buildDisplay(n){
   displayEl.innerHTML=''; displayEl.className=n===8?'expert-display':'';
   for(let i=0;i<n;i++){const d=document.createElement('div');d.className='digit';d.textContent='_';displayEl.appendChild(d);}
 }
 
-// ── Start game ─────────────────────────────
 function startGame(daily=false){
   isDaily=daily;
   clearInterval(timerInterval);
@@ -563,7 +518,6 @@ function startGame(daily=false){
 
   const n=daily?DAILY_CONFIG.digits:DIFFS[diff].digits;
 
-  // Daily: check if already completed today
   if(daily){
     secretCode=generateDailyCode(n);
     currentVaultId='DAILY-'+getDailyNumber();
@@ -615,7 +569,6 @@ function startGame(daily=false){
 }
 
 function showDailyCompleted(ds){
-  // Show countdown to next daily instead of game
   gameOver=true;
   buildDisplay(DAILY_CONFIG.digits);
   document.getElementById('status-label').textContent=ds.won?'Access granted':'Challenge failed';
@@ -627,7 +580,6 @@ function showDailyCompleted(ds){
   strikeBar.style.display='none';
   setMessage('','');
   startDailyCountdown();
-  // disable keypad
   setLockoutKeys(true);
 }
 
@@ -653,7 +605,6 @@ function startTimer(){
   timerInterval=setInterval(countDown,1000);
 }
 
-// ── Input ──────────────────────────────────
 document.querySelectorAll('.key').forEach(btn=>{
   btn.addEventListener('click',()=>{
     resumeAC();
@@ -677,7 +628,6 @@ document.addEventListener('keydown',e=>{
   updateDisplay();
 });
 
-// ── Tabs ───────────────────────────────────
 document.querySelectorAll('.mode-tab').forEach(tab=>{
   tab.addEventListener('click',()=>{
     document.querySelectorAll('.mode-tab').forEach(t=>t.classList.remove('active'));
@@ -710,7 +660,6 @@ document.getElementById('btn-stats').addEventListener('click',()=>{
   renderStats();
 });
 
-// ── Abort ──────────────────────────────────
 let pendingAbortAction=null;
 function showAbortConfirm(cb){pendingAbortAction=cb;abortConfirm.classList.add('show');}
 document.getElementById('btn-abort-cancel').addEventListener('click',()=>{abortConfirm.classList.remove('show');pendingAbortAction=null;});
@@ -719,7 +668,6 @@ document.getElementById('btn-abort-ok').addEventListener('click',()=>{
   if(pendingAbortAction){recordLoss();clearInterval(timerInterval);pendingAbortAction();pendingAbortAction=null;}
 });
 
-// ── Submit ─────────────────────────────────
 function submitGuess(){
   if(lockedOut)return;
   const n=isDaily?DAILY_CONFIG.digits:DIFFS[diff].digits;
@@ -758,7 +706,6 @@ function submitGuess(){
   }
 }
 
-// ── Classic wrong guess ────────────────────
 function handleClassicWrongGuess(correctCount){
   let penalty;
   if(correctCount===0) penalty=10;
@@ -782,9 +729,7 @@ function triggerClassicLockout(){
   const iv=setInterval(()=>{rem--;if(rem<=0){clearInterval(iv);lockedOut=false;lockoutBanner.classList.remove('show');setLockoutKeys(false);currentCode=[];updateDisplay();setMessage('Enter access code.','');}else{setMessage('Security lockout — '+rem+'s','bad');}},1000);
 }
 
-// ── Daily wrong guess ──────────────────────
 function handleDailyWrongGuess(correctCount){
-  // Count strike only on 0 correct
   let isStrike=false, lockoutDur=0;
   if(correctCount===0){
     isStrike=true;
@@ -793,7 +738,6 @@ function handleDailyWrongGuess(correctCount){
     lockoutDur=DAILY_LOCKOUT_DURATIONS[Math.min(dailyStrikes-1, DAILY_LOCKOUT_DURATIONS.length-1)];
 
     if(dailyStrikes>DAILY_MAX_STRIKES){
-      // Lockdown
       gameOver=true;
       saveDailyState({completed:true,won:false,attempts:attemptCount});
       recordLoss();
@@ -836,7 +780,6 @@ function showDailyLockdown(){
   document.getElementById('lose-sub-text').textContent='Security violations exceeded. Code was';
   document.getElementById('lose-code-text').textContent=secretCode;
   loseOverlay.classList.add('show');
-  // change button text for daily
   document.getElementById('btn-lose-restart').textContent='View Countdown';
 }
 
@@ -846,7 +789,6 @@ function updateStrikeBar(){
   });
 }
 
-// ── Classic timer ──────────────────────────
 function updateTimerEl(){
   timerEl.textContent=fmtTime(timeLeft);
   timerEl.className=timeLeft<=10?'crit':timeLeft<=30?'warn':'';
@@ -856,7 +798,6 @@ function countDown(){
   if(timeLeft<=0){gameOver=true;clearInterval(timerInterval);recordLoss();showLoseOverlay();}
 }
 
-// ── Display helpers ────────────────────────
 function updateDisplay(){
   const digits=displayEl.querySelectorAll('.digit');
   const n=isDaily?DAILY_CONFIG.digits:DIFFS[diff].digits;
@@ -870,14 +811,12 @@ function penaltyFlashScreen(){screenEl.classList.remove('penalty-flash');void sc
 function setMessage(text,cls){messageEl.textContent=text;messageEl.className=cls;}
 function setLockoutKeys(locked){document.querySelectorAll('.key').forEach(k=>k.classList.toggle('locked',locked));}
 
-// ── History ────────────────────────────────
 function addGuessRow(guess,feedback,num){
   const row=document.createElement('div');row.className='guess-row';row.setAttribute('data-attempt',num);
   for(let i=0;i<guess.length;i++){const box=document.createElement('div');box.className='feedback-digit '+feedback[i];box.textContent=guess[i];row.appendChild(box);}
   historyEl.prepend(row);
 }
 
-// ── Feedback ───────────────────────────────
 function getFeedback(guess,code){
   const n=code.length,fb=Array(n).fill('wrong'),cu=Array(n).fill(false),gu=Array(n).fill(false);
   for(let i=0;i<n;i++)if(guess[i]===code[i]){fb[i]='correct';cu[i]=gu[i]=true;}
@@ -885,7 +824,6 @@ function getFeedback(guess,code){
   return fb;
 }
 
-// ── Win overlay ────────────────────────────
 const FIRST_TRY_MSGS=[
   "You guessed that first try?\nGet a lottery ticket.",
   "Either extremely lucky\nor you're on the admin team.",
@@ -910,7 +848,6 @@ function showWinOverlay(elapsed){
   revealEl.querySelectorAll('.reveal-digit').forEach((el,i)=>setTimeout(()=>el.classList.add('show'),200+i*120));
 }
 
-// ── Lose overlay ───────────────────────────
 function showLoseOverlay(){
   document.getElementById('lose-title-text').textContent="Time's Up";
   document.getElementById('lose-sub-text').textContent='The code was';
@@ -919,7 +856,6 @@ function showLoseOverlay(){
   loseOverlay.classList.add('show');
 }
 
-// ── Share ──────────────────────────────────
 function buildShareText(won){
   const label=isDaily?`Daily #${getDailyNumber()}`:`${DIFFS[diff].label}`;
   const header=`LOCKLE ${label}`;
@@ -943,7 +879,6 @@ function setupShare(btnId,confirmId,won){
 setupShare('btn-share','copy-confirm',true);
 setupShare('btn-share-lose','copy-confirm-lose',false);
 
-// ── Konami → password prompt ───────────────
 const KONAMI=['ArrowUp','ArrowUp','ArrowDown','ArrowDown','ArrowLeft','ArrowRight','ArrowLeft','ArrowRight','a'];
 let konamiIdx=0;
 function konamiHandler(key){
@@ -951,7 +886,6 @@ function konamiHandler(key){
   else{konamiIdx=key===KONAMI[0]?1:0;}
 }
 
-// ── Admin password prompt ──────────────────
 const adminPwOverlay=document.getElementById('admin-pw-overlay');
 const adminPwInput=document.getElementById('admin-pw-input');
 const adminPwError=document.getElementById('admin-pw-error');
@@ -973,14 +907,13 @@ function submitAdminPassword(){
     updateAdmin();
   } else if(pw===TEST_PASSWORD){
     adminPwOverlay.classList.remove('show');
-    runBanSequence(false); // fake ban, no real punishment
+    runBanSequence(false);
   } else {
     adminPwOverlay.classList.remove('show');
-    runBanSequence(true); // fake ban + real lockout
+    runBanSequence(true);
   }
 }
 
-// ── Ban sequence ───────────────────────────
 const BAN_LINES=[
   'Unauthorized access detected.',
   'Tracing connection...',
@@ -1011,7 +944,6 @@ function runBanSequence(realPunishment){
       lineIdx++;
       setTimeout(showNextLine, lineIdx===BAN_LINES.length?800:600);
     } else {
-      // 10 second countdown
       let count=10;
       cdEl.textContent=count;
       const iv=setInterval(()=>{
@@ -1019,7 +951,6 @@ function runBanSequence(realPunishment){
         if(count<=0){
           clearInterval(iv);
           cdEl.textContent='';
-          // "Just kidding"
           jkEl.style.display='block';
           setTimeout(()=>{
             if(realPunishment){
@@ -1028,10 +959,9 @@ function runBanSequence(realPunishment){
               lockoutMsgEl.textContent='Terminal Access Revoked\n05:00';
               setTimeout(()=>{
                 banOverlay.classList.remove('show');
-                startRealLockout(300); // 5 minutes
+                startRealLockout(300);
               },1500);
             } else {
-              // test password: just kidding, returns to game
               setTimeout(()=>{
                 banOverlay.classList.remove('show');
                 setMessage('Nice try.','warn');
@@ -1045,9 +975,7 @@ function runBanSequence(realPunishment){
   setTimeout(showNextLine,400);
 }
 
-// ── Real lockout ───────────────────────────
 function startRealLockout(seconds){
-  // Store lockout expiry in localStorage
   const expiry=Date.now()+(seconds*1000);
   try{localStorage.setItem('lockle_lockout',expiry);}catch(e){}
   showRealLockout(seconds);
@@ -1080,7 +1008,6 @@ function showRealLockout(seconds){
   },1000);
 }
 
-// ── Admin panel ────────────────────────────
 function updateAdmin(){
   document.getElementById('admin-code').textContent=secretCode||'——';
   document.getElementById('admin-vault').textContent=currentVaultId||'——';
@@ -1118,7 +1045,6 @@ document.getElementById('admin-reset-stats').addEventListener('click',()=>{
   if(confirm('Reset all statistics?')){localStorage.removeItem('lockle_stats4');renderStats();}
 });
 
-// ── Init ───────────────────────────────────
 if(!checkStoredLockout()){
   renderStats();
   startGame(false);
