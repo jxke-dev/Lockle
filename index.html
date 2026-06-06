@@ -33,7 +33,7 @@ body {
   font-family: 'Rajdhani', sans-serif;
   min-height: 100vh;
   display: flex; flex-direction: column; align-items: center;
-  padding: 30px 16px 60px;
+  padding: 30px 16px 0;
 }
 .title-block { text-align: center; margin-bottom: 24px; }
 .title-block h1 { font-family: 'Share Tech Mono', monospace; font-size: clamp(32px,7vw,52px); letter-spacing: 10px; color: var(--green); text-shadow: 0 0 30px rgba(0,201,122,0.3); }
@@ -238,7 +238,35 @@ body.expert-mode .feedback-digit { width: 34px; height: 34px; font-size: 17px; }
 
 @media (max-width: 480px) {
   #admin-panel { right: 10px; left: 10px; width: auto; }
+  .legend { gap: 10px; font-size: 11px; }
 }
+
+/* FOOTER */
+#footer { width: min(95vw, 480px); margin-top: 22px; margin-bottom: 40px; }
+.footer-inner { border-top: 1px solid var(--border); padding-top: 14px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; font-family: 'Share Tech Mono', monospace; }
+.footer-credit { font-size: 11px; letter-spacing: 2px; color: var(--muted); text-transform: uppercase; }
+.footer-credit a { color: var(--green); text-decoration: none; }
+.footer-credit a:hover { text-decoration: underline; }
+.footer-right { display: flex; align-items: center; gap: 12px; }
+.footer-version { font-size: 11px; letter-spacing: 2px; color: #2e2e3a; text-transform: uppercase; }
+.footer-htp { background: none; border: 1px solid var(--border); border-radius: 5px; color: var(--muted); font-family: 'Share Tech Mono', monospace; font-size: 10px; letter-spacing: 2px; padding: 5px 10px; cursor: pointer; text-transform: uppercase; transition: color 0.15s, border-color 0.15s; }
+.footer-htp:hover { color: var(--green); border-color: rgba(0,201,122,0.4); }
+
+/* HOW TO PLAY */
+#htp-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.82); z-index: 300; align-items: center; justify-content: center; padding: 20px; }
+#htp-overlay.show { display: flex; }
+#htp-box { background: #0e0e14; border: 1px solid var(--border2); border-radius: 14px; padding: 28px 24px; width: min(90vw, 400px); font-family: 'Share Tech Mono', monospace; max-height: 90vh; overflow-y: auto; }
+#htp-box h2 { font-size: 13px; letter-spacing: 4px; color: var(--green); text-transform: uppercase; margin-bottom: 20px; text-align: center; }
+.htp-section { margin-bottom: 18px; }
+.htp-section h3 { font-size: 10px; letter-spacing: 3px; color: var(--muted); text-transform: uppercase; margin-bottom: 10px; border-bottom: 1px solid var(--border); padding-bottom: 6px; }
+.htp-row { display: flex; align-items: flex-start; gap: 10px; margin-bottom: 8px; font-size: 12px; color: var(--text); letter-spacing: 1px; line-height: 1.5; }
+.htp-led { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; margin-top: 2px; }
+.htp-led.g { background: var(--green); box-shadow: 0 0 5px var(--green); }
+.htp-led.y { background: var(--yellow); box-shadow: 0 0 5px var(--yellow); }
+.htp-led.x { background: #444; }
+.htp-note { font-size: 11px; color: var(--muted); letter-spacing: 1px; line-height: 1.7; margin-bottom: 8px; }
+#htp-close { width: 100%; margin-top: 6px; padding: 12px; background: var(--digit-bg); border: 1px solid rgba(0,201,122,0.3); border-radius: 8px; color: var(--green); font-family: 'Share Tech Mono', monospace; font-size: 12px; letter-spacing: 3px; cursor: pointer; text-transform: uppercase; transition: background 0.15s; }
+#htp-close:hover { background: rgba(0,201,122,0.08); }
 </style>
 </head>
 <body>
@@ -424,6 +452,42 @@ body.expert-mode .feedback-digit { width: 34px; height: 34px; font-size: 17px; }
   <div id="rlo-title">Terminal Access Revoked</div>
   <div id="rlo-timer">05:00</div>
   <div id="rlo-sub">Unauthorized access attempt logged</div>
+</div>
+
+<!-- Footer -->
+<div id="footer">
+  <div class="footer-inner">
+    <div class="footer-credit">Created by <a href="https://github.com/jxke-dev" target="_blank">jxke-dev</a></div>
+    <div class="footer-right">
+      <button class="footer-htp" id="btn-htp">How to Play</button>
+      <div class="footer-version">v1.0 · June 2026</div>
+    </div>
+  </div>
+</div>
+
+<!-- How to Play -->
+<div id="htp-overlay">
+  <div id="htp-box">
+    <h2>How to Play</h2>
+    <div class="htp-section">
+      <h3>Feedback</h3>
+      <div class="htp-row"><div class="htp-led g"></div> Correct digit, correct position.</div>
+      <div class="htp-row"><div class="htp-led y"></div> Correct digit, wrong position.</div>
+      <div class="htp-row"><div class="htp-led x"></div> Digit not in the code at all.</div>
+    </div>
+    <div class="htp-section">
+      <h3>Classic Mode</h3>
+      <div class="htp-note">Guess the lock code before the timer runs out. Wrong guesses cost you time — the closer your guess, the smaller the penalty. 3 wrong guesses in a row triggers a short security lockout.</div>
+      <div class="htp-note">Easy: 4 digits · 3 min &nbsp;|&nbsp; Normal: 6 digits · 3 min<br>Hard: 6 digits · 90s &nbsp;|&nbsp; Expert: 8 digits · 60s</div>
+    </div>
+    <div class="htp-section">
+      <h3>Daily Mode</h3>
+      <div class="htp-note">One challenge per day. 8 digits. No timer.</div>
+      <div class="htp-note">Green = correct digit and position. Yellow = correct digit, wrong position.</div>
+      <div class="htp-note">You earn a strike only when a guess contains zero correct positions. Six strikes triggers a lockdown until the next daily reset.</div>
+    </div>
+    <button id="htp-close">Got it</button>
+  </div>
 </div>
 
 <script>
@@ -1048,9 +1112,23 @@ document.getElementById('admin-reset-stats').addEventListener('click',()=>{
   if(confirm('Reset all statistics?')){localStorage.removeItem('lockle_stats4');renderStats();}
 });
 
+const htpOverlay = document.getElementById('htp-overlay');
+document.getElementById('btn-htp').addEventListener('click', () => htpOverlay.classList.add('show'));
+document.getElementById('htp-close').addEventListener('click', () => {
+  htpOverlay.classList.remove('show');
+  try { localStorage.setItem('lockle_htp_seen', '1'); } catch(e) {}
+});
+htpOverlay.addEventListener('click', e => {
+  if (e.target === htpOverlay) {
+    htpOverlay.classList.remove('show');
+    try { localStorage.setItem('lockle_htp_seen', '1'); } catch(e) {}
+  }
+});
+
 if(!checkStoredLockout()){
   renderStats();
   startGame(false);
+  try { if(!localStorage.getItem('lockle_htp_seen')) setTimeout(()=>htpOverlay.classList.add('show'), 600); } catch(e) {}
 }
 </script>
 </body>
