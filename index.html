@@ -3,12 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Lockle</title>
-
-<link rel="icon" type="image/x-icon" href="favicon.ico">
-
-  
+<title>Lockle — Crack the Code</title>
 <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Rajdhani:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%230a0a0b'/%3E%3Crect x='8' y='14' width='16' height='12' rx='2' fill='none' stroke='%2300c97a' stroke-width='2'/%3E%3Cpath d='M11 14v-3a5 5 0 0 1 10 0v3' fill='none' stroke='%2300c97a' stroke-width='2' stroke-linecap='round'/%3E%3Ccircle cx='16' cy='20' r='2' fill='%2300c97a'/%3E%3C/svg%3E">
 <style>
 :root {
   --bg: #0a0a0b;
@@ -244,8 +241,6 @@ body.expert-mode .feedback-digit { width: 34px; height: 34px; font-size: 17px; }
   #admin-panel { right: 10px; left: 10px; width: auto; }
   .legend { gap: 10px; font-size: 11px; }
 }
-
-/* FOOTER */
 #footer { width: min(95vw, 480px); margin-top: 22px; margin-bottom: 40px; }
 .footer-inner { border-top: 1px solid var(--border); padding-top: 14px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; font-family: 'Share Tech Mono', monospace; }
 .footer-credit { font-size: 11px; letter-spacing: 2px; color: var(--muted); text-transform: uppercase; }
@@ -255,8 +250,6 @@ body.expert-mode .feedback-digit { width: 34px; height: 34px; font-size: 17px; }
 .footer-version { font-size: 11px; letter-spacing: 2px; color: #2e2e3a; text-transform: uppercase; }
 .footer-htp { background: none; border: 1px solid var(--border); border-radius: 5px; color: var(--muted); font-family: 'Share Tech Mono', monospace; font-size: 10px; letter-spacing: 2px; padding: 5px 10px; cursor: pointer; text-transform: uppercase; transition: color 0.15s, border-color 0.15s; }
 .footer-htp:hover { color: var(--green); border-color: rgba(0,201,122,0.4); }
-
-/* HOW TO PLAY */
 #htp-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.82); z-index: 300; align-items: center; justify-content: center; padding: 20px; }
 #htp-overlay.show { display: flex; }
 #htp-box { background: #0e0e14; border: 1px solid var(--border2); border-radius: 14px; padding: 28px 24px; width: min(90vw, 400px); font-family: 'Share Tech Mono', monospace; max-height: 90vh; overflow-y: auto; }
@@ -458,18 +451,16 @@ body.expert-mode .feedback-digit { width: 34px; height: 34px; font-size: 17px; }
   <div id="rlo-sub">Unauthorized access attempt logged</div>
 </div>
 
-<!-- Footer -->
 <div id="footer">
   <div class="footer-inner">
     <div class="footer-credit">Created by <a href="https://github.com/jxke-dev" target="_blank">jxke-dev</a></div>
     <div class="footer-right">
       <button class="footer-htp" id="btn-htp">How to Play</button>
-      <div class="footer-version">v1.0 · June 2026</div>
+      <div class="footer-version">v1.0.1 · June 2026</div>
     </div>
   </div>
 </div>
 
-<!-- How to Play -->
 <div id="htp-overlay">
   <div id="htp-box">
     <h2>How to Play</h2>
@@ -642,8 +633,15 @@ function startGame(daily=false){
 }
 
 function showDailyCompleted(ds){
+  clearInterval(timerInterval);
+  clearInterval(dailyCountdownInterval);
   gameOver=true;
-  vaultIdEl.textContent=currentVaultId;
+  isDaily=true;
+  vaultIdEl.textContent='DAILY-'+getDailyNumber();
+  winOverlay.classList.remove('show');
+  loseOverlay.classList.remove('show');
+  abortConfirm.classList.remove('show');
+  lockoutBanner.classList.remove('show');
   buildDisplay(DAILY_CONFIG.digits);
   document.getElementById('status-label').textContent=ds.won?'Access granted':'Challenge failed';
   timerEl.style.display='none';
@@ -653,6 +651,7 @@ function showDailyCompleted(ds){
            : 'Failed — come back tomorrow.';
   strikeBar.style.display='none';
   document.getElementById('btn-restart').style.display='none';
+  historyEl.innerHTML='';
   setMessage('','');
   startDailyCountdown();
   setLockoutKeys(true);
@@ -716,17 +715,27 @@ document.querySelectorAll('.mode-tab').forEach(tab=>{
 
 document.querySelectorAll('.diff-tab').forEach(tab=>{
   tab.addEventListener('click',()=>{
-    document.querySelectorAll('.diff-tab').forEach(t=>t.classList.remove('active'));
-    tab.classList.add('active');
-    diff=tab.dataset.diff;
-    if(!gameOver&&timerStarted){showAbortConfirm(()=>startGame(false));}
-    else{startGame(false);}
+    const newDiff=tab.dataset.diff;
+    if(newDiff===diff)return;
+    if(!gameOver&&timerStarted){
+      showAbortConfirm(()=>{
+        diff=newDiff;
+        document.querySelectorAll('.diff-tab').forEach(t=>t.classList.remove('active'));
+        tab.classList.add('active');
+        startGame(false);
+      });
+    } else {
+      diff=newDiff;
+      document.querySelectorAll('.diff-tab').forEach(t=>t.classList.remove('active'));
+      tab.classList.add('active');
+      startGame(false);
+    }
   });
 });
 
 document.getElementById('btn-restart').addEventListener('click',()=>{
-  if(!gameOver&&timerStarted){showAbortConfirm(()=>startGame(isDaily));}
-  else{startGame(isDaily);}
+  if(!gameOver&&timerStarted){showAbortConfirm(()=>startGame(false));}
+  else{startGame(false);}
 });
 document.getElementById('btn-win-restart').addEventListener('click',()=>startGame(false));
 document.getElementById('btn-lose-restart').addEventListener('click',()=>startGame(isDaily));
@@ -764,8 +773,12 @@ function submitGuess(){
     consecutiveWrong=0;
     document.getElementById('status-label').textContent='Access granted';
     setMessage('Authorization accepted','good');
-    if(isDaily){saveDailyState({completed:true,won:true,attempts:attemptCount,elapsed});}
-    setTimeout(()=>{playWin();recordWin(elapsed);showWinOverlay(elapsed);},900);
+    if(isDaily){
+      saveDailyState({completed:true,won:true,attempts:attemptCount,elapsed});
+      setTimeout(()=>{playWin();showDailyCompleted({won:true,attempts:attemptCount});},900);
+    } else {
+      setTimeout(()=>{playWin();recordWin(elapsed);showWinOverlay(elapsed);},900);
+    }
     return;
   }
 
@@ -813,7 +826,7 @@ function handleDailyWrongGuess(correctCount){
       gameOver=true;
       saveDailyState({completed:true,won:false,attempts:attemptCount});
       recordLoss();
-      showDailyLockdown();
+      setTimeout(()=>showDailyCompleted({won:false,attempts:attemptCount}),600);
       return;
     }
 
@@ -1123,7 +1136,7 @@ document.getElementById('htp-close').addEventListener('click', () => {
   try { localStorage.setItem('lockle_htp_seen', '1'); } catch(e) {}
 });
 htpOverlay.addEventListener('click', e => {
-  if (e.target === htpOverlay) {
+  if(e.target === htpOverlay){
     htpOverlay.classList.remove('show');
     try { localStorage.setItem('lockle_htp_seen', '1'); } catch(e) {}
   }
